@@ -2,17 +2,16 @@ import {
   ChangeEvent, FC, lazy, useMemo,
 } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useQuery } from 'react-query';
 import { MdAdd } from 'react-icons/md';
 import {
   Button, Center, Input, ModalHeader, Spinner, Stack, useDisclosure,
 } from '@chakra-ui/react';
-import { getProducts } from '@/services/products';
+import { useGetProducts } from '@/hooks/products';
 import { withSuspense } from '@/hoc/withSuspense';
 import Pagination from '@/components/common/Pagination';
 import Modal from '@/components/common/Modal';
 import ProductsTable from './ProductsTable';
-import { useSearch } from '@/hooks/useSearch';
+import { useSearch } from '@/hooks/search';
 
 const CreateProductForm = withSuspense(lazy(() => import('./CreateProductForm')), { margin: '30px' });
 
@@ -21,7 +20,7 @@ const Products: FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [searchParams] = useSearchParams();
   const params = useMemo(() => Object.fromEntries(searchParams.entries()), [searchParams]);
-  const { data, isLoading, isSuccess } = useQuery(['products', params], () => getProducts(params));
+  const { data, isLoading, isSuccess } = useGetProducts(params);
 
   const onSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);

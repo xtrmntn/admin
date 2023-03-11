@@ -15,9 +15,9 @@ import {
   Stack,
   Textarea,
 } from '@chakra-ui/react';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { getAllCategories } from '@/services/categories';
+import { useMutation, useQueryClient } from 'react-query';
 import { createProduct } from '@/services/products';
+import { useGetAllCategories } from '@/hooks/categories';
 import { toast } from '@/utils/toast';
 
 interface CreateProductFormProps {
@@ -26,7 +26,7 @@ interface CreateProductFormProps {
 
 const CreateProductForm: FC<CreateProductFormProps> = ({ onClose }) => {
   const queryClient = useQueryClient();
-  const { data: categories = [] } = useQuery(['categories', 'all'], getAllCategories);
+  const { data: categories = [] } = useGetAllCategories();
   const { mutate: onCreate, isLoading } = useMutation(createProduct, {
     onSuccess() {
       toast({ description: 'Товар успешно добавлен', status: 'success' });

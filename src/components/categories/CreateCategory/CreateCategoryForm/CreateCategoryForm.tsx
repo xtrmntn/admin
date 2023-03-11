@@ -9,8 +9,9 @@ import {
   Select,
   Stack,
 } from '@chakra-ui/react';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { createCategory, getAllCategories } from '@/services/categories';
+import { useMutation, useQueryClient } from 'react-query';
+import { createCategory } from '@/services/categories';
+import { useGetAllCategories } from '@/hooks/categories';
 import { toast } from '@/utils/toast';
 
 interface CreateCategoryFormProps {
@@ -20,7 +21,7 @@ interface CreateCategoryFormProps {
 
 const CreateCategoryForm: FC<CreateCategoryFormProps> = ({ parentId, onClose }) => {
   const queryClient = useQueryClient();
-  const { data: categories = [], isSuccess } = useQuery(['categories', 'all'], getAllCategories);
+  const { data: categories = [], isSuccess } = useGetAllCategories();
   const { mutate: onCreate, isLoading } = useMutation(createCategory, {
     onSuccess(data) {
       toast({ description: 'Категория успешно добавлена', status: 'success' });

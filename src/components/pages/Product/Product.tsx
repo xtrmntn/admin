@@ -1,16 +1,17 @@
 import { FC, lazy } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import {
   Divider, ModalHeader, Spinner, Stack, Text, useDisclosure,
 } from '@chakra-ui/react';
-import { getProduct, removeProduct } from '@/services/products';
+import { removeProduct } from '@/services/products';
+import { useGetProduct } from '@/hooks/products';
+import { withSuspense } from '@/hoc/withSuspense';
 import { formatBoolean, formatPrice } from '@/utils/format';
 import { toast } from '@/utils/toast';
 import Actions from '@/components/common/Actions';
 import Link from '@/components/common/Link';
 import ProductProperties from './ProductProperties';
-import { withSuspense } from '@/hoc/withSuspense';
 import Modal from '@/components/common/Modal';
 import ProductImage from './ProductImage/ProductImage';
 
@@ -21,7 +22,7 @@ const Product: FC = () => {
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const queryClient = useQueryClient();
-  const { data: product, isLoading, isSuccess } = useQuery(['product', slug], () => getProduct(slug as string));
+  const { data: product, isLoading, isSuccess } = useGetProduct(slug as string);
   const { mutate: onRemove, isLoading: isRemoving } = useMutation(removeProduct, {
     onSuccess() {
       toast({ description: 'Товар успешно удален', status: 'success' });

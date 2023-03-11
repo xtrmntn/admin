@@ -2,7 +2,7 @@ import {
   ChangeEvent, FC, FormEvent, useState,
 } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import {
   Button,
   Checkbox,
@@ -20,8 +20,8 @@ import {
   Stack,
   Textarea,
 } from '@chakra-ui/react';
-import { getAllCategories } from '@/services/categories';
 import { ProductWithRelations, updateProduct } from '@/services/products';
+import { useGetAllCategories } from '@/hooks/categories';
 import { toast } from '@/utils/toast';
 
 interface UpdateProductFormProps {
@@ -39,7 +39,7 @@ const UpdateProductForm: FC<UpdateProductFormProps> = ({ product, onClose }) => 
     inStock: product.inStock,
   });
   const queryClient = useQueryClient();
-  const { data: categories = [], isSuccess } = useQuery(['categories', 'all'], getAllCategories);
+  const { data: categories = [], isSuccess } = useGetAllCategories();
   const { mutate: onUpdate, isLoading } = useMutation(updateProduct, {
     onSuccess(data) {
       toast({ description: 'Товар успешно обновлен', status: 'success' });

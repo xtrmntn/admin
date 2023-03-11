@@ -1,10 +1,11 @@
 import { FC, lazy } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import {
   Heading, ModalHeader, Spinner, Stack, useDisclosure,
 } from '@chakra-ui/react';
-import { getCategory, removeCategory } from '@/services/categories';
+import { removeCategory } from '@/services/categories';
+import { useGetCategory } from '@/hooks/categories';
 import { toast } from '@/utils/toast';
 import { withSuspense } from '@/hoc/withSuspense';
 import Breadcrumbs from '@/components/common/Breadcrumbs';
@@ -21,7 +22,7 @@ const Category: FC = () => {
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const queryClient = useQueryClient();
-  const { data: category, isLoading, isSuccess } = useQuery(['category', slug], () => getCategory(slug as string));
+  const { data: category, isLoading, isSuccess } = useGetCategory(slug as string);
   const { mutate: onRemove, isLoading: isRemoving } = useMutation(removeCategory, {
     onSuccess() {
       toast({ description: 'Категория успешно удалена', status: 'success' });

@@ -1,12 +1,11 @@
 import { FC } from 'react';
-import { useQuery } from 'react-query';
 import { Spinner, Stack } from '@chakra-ui/react';
 import CategoriesTable from '@/components/categories/CategoriesTable';
-import { getCategories } from '@/services/categories';
+import { useGetCategories } from '@/hooks/categories';
 import CreateCategory from '@/components/categories/CreateCategory';
 
 const Categories: FC = () => {
-  const { data: categories, isLoading, isSuccess } = useQuery('categories', getCategories);
+  const { data: categories, isLoading, isSuccess } = useGetCategories();
 
   if (isLoading) {
     return <Spinner />;

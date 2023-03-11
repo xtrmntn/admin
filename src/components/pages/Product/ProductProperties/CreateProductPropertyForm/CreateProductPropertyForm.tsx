@@ -1,10 +1,10 @@
 import { FC, FormEvent } from 'react';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import {
   Button, FormControl, FormLabel, Input, ModalBody, ModalFooter, Select, Stack,
 } from '@chakra-ui/react';
-import { getAllProperties } from '@/services/properties';
 import { createProductProperty, Product } from '@/services/products';
+import { useGetAllProperties } from '@/hooks/properties';
 import { toast } from '@/utils/toast';
 
 interface CreateProductPropertyFormProps {
@@ -14,7 +14,7 @@ interface CreateProductPropertyFormProps {
 
 const CreateProductPropertyForm: FC<CreateProductPropertyFormProps> = ({ product, onClose }) => {
   const queryClient = useQueryClient();
-  const { data: properties, isLoading, isSuccess } = useQuery(['properties', 'all'], getAllProperties);
+  const { data: properties, isLoading, isSuccess } = useGetAllProperties();
   const { mutate: onCreate } = useMutation(createProductProperty, {
     onSuccess() {
       toast({ description: 'Характеристика успешно добавлена', status: 'success' });

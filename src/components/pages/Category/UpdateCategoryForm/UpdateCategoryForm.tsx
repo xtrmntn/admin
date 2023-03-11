@@ -1,11 +1,12 @@
 import { FC, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import {
   Button,
   FormControl, FormLabel, Input, ModalBody, ModalFooter, Select, Stack,
 } from '@chakra-ui/react';
-import { CategoryWithParent, getAllCategories, updateCategory } from '@/services/categories';
+import { CategoryWithParent, updateCategory } from '@/services/categories';
+import { useGetAllCategories } from '@/hooks/categories';
 import { toast } from '@/utils/toast';
 
 interface UpdateCategoryFormProps {
@@ -16,7 +17,7 @@ interface UpdateCategoryFormProps {
 const UpdateCategoryForm: FC<UpdateCategoryFormProps> = ({ category, onClose }) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const { data: categories = [], isSuccess } = useQuery(['categories', 'all'], getAllCategories);
+  const { data: categories = [], isSuccess } = useGetAllCategories();
   const { mutate: onUpdate, isLoading } = useMutation(updateCategory, {
     onSuccess(data) {
       toast({ description: 'Категория успешно обновлена', status: 'success' });

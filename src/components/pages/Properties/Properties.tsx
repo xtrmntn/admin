@@ -2,17 +2,16 @@ import {
   ChangeEvent, FC, lazy, useMemo,
 } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useQuery } from 'react-query';
 import { MdAdd } from 'react-icons/md';
 import {
   Button, Center, Input, ModalHeader, Spinner, Stack, useDisclosure,
 } from '@chakra-ui/react';
-import { getProperties } from '@/services/properties';
+import { useSearch } from '@/hooks/search';
+import { useGetProperties } from '@/hooks/properties';
 import { withSuspense } from '@/hoc/withSuspense';
 import Modal from '@/components/common/Modal';
-import PropertiesTable from './PropertiesTable';
 import Pagination from '@/components/common/Pagination';
-import { useSearch } from '@/hooks/useSearch';
+import PropertiesTable from './PropertiesTable';
 
 const CreatePropertyForm = withSuspense(lazy(() => import('./CreatePropertyForm')), { margin: '30px' });
 
@@ -21,7 +20,7 @@ const Properties: FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [searchParams] = useSearchParams();
   const params = useMemo(() => Object.fromEntries(searchParams.entries()), [searchParams]);
-  const { data, isLoading, isSuccess } = useQuery(['properties', params], () => getProperties(params));
+  const { data, isLoading, isSuccess } = useGetProperties(params);
 
   const onSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
