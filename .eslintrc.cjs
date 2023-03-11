@@ -1,0 +1,30 @@
+module.exports = {
+  root: true,
+  parser: '@typescript-eslint/parser',
+  plugins: ['@typescript-eslint'],
+  extends: [
+    'airbnb',
+    'airbnb/hooks',
+    'airbnb-typescript',
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+  ],
+  parserOptions: {
+    project: 'tsconfig.json',
+    tsconfigRootDir: __dirname,
+  },
+  rules: {
+    '@typescript-eslint/no-shadow': 'off',
+    'import/prefer-default-export': 'off',
+    'import/extensions': 'off',
+    'no-restricted-exports': 'off',
+    'react-hooks/exhaustive-deps': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'react/function-component-definition': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'react/require-default-props': 'off',
+    'react/button-has-type': 'off',
+    'react/prop-types': 'off',
+    'import/no-extraneous-dependencies': 'off',
+  },
+};

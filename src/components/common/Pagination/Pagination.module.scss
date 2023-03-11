@@ -1,0 +1,28 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  list-style: none;
+}
+
+.page,
+.next,
+.prev {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+}
+
+.disabled a {
+  color: var(--chakra-colors-gray-400);
+  cursor: default;
+}
+
+.active {
+  color: var(--chakra-colors-green-500);
+  font-weight: 700;
+  border: 1px solid var(--chakra-colors-green-500);
+  border-radius: 12px;
+}
