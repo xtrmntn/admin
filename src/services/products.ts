@@ -40,8 +40,8 @@ export interface GetProductsParams {
   withImage?: boolean;
 }
 
-export interface UpdateProductData extends Omit<Product, 'image'> {
-  categoryId: number;
+export interface UpdateProductData extends Omit<Partial<Product>, 'image' | 'category'> {
+  categoryId?: number;
 }
 
 export interface CreateProductPropertyData {
@@ -72,7 +72,7 @@ export const getProduct = async (slug: string) => {
 
 export const createProduct = async (data: FormData) => api.post('/products', data);
 
-export const updateProduct = async ({ id, ...product }: Partial<Product>) => {
+export const updateProduct = async ({ id, ...product }: UpdateProductData) => {
   const { data } = await api.patch<Product>(`/products/${id}`, product);
   return data;
 };

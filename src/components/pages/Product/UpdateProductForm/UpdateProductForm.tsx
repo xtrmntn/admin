@@ -78,6 +78,7 @@ const UpdateProductForm: FC<UpdateProductFormProps> = ({ product, onClose }) => 
     onUpdate({
       ...form,
       id: product.id,
+      categoryId: Number(form.categoryId),
       name: form.name === product.name ? undefined : form.name,
     });
   };
