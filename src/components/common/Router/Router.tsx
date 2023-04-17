@@ -12,6 +12,7 @@ const Categories = withSuspense(withPrivate(lazy(() => import('@/components/page
 const Category = withSuspense(withPrivate(lazy(() => import('@/components/pages/Category'))));
 const Properties = withSuspense(withPrivate(lazy(() => import('@/components/pages/Properties'))));
 const Orders = withSuspense(withPrivate(lazy(() => import('@/components/pages/Orders'))));
+const Order = withSuspense(withPrivate(lazy(() => import('@/components/pages/Order'))));
 
 const Router: FC = () => (
   <Routes>
@@ -32,6 +33,7 @@ const Router: FC = () => (
       <Route path="categories/:slug" element={<Category />} />
       <Route path="properties" element={<Properties />} />
       <Route path="orders" element={<Orders />} />
+      <Route path="orders/:id" element={<Order />} />
       <Route path="*" element={<Navigate to="/products" />} />
     </Route>
   </Routes>

@@ -7,3 +7,7 @@ export const formatPrice = (price: number) => (
 );
 
 export const formatBoolean = (value: boolean) => (value ? 'Да' : 'Нет');
+
+export const formatPhoneNumber = (phone: string) => (
+  `tel:${phone.replace(/[\s()-]/g, '')}`
+);
